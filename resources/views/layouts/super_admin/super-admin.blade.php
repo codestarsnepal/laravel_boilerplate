@@ -8,8 +8,7 @@
 
     <title>@yield('title')</title>
     <!-- Favicons -->
-    <link href="{{ asset('frontend/img/wireless.png') }}" rel="icon">
-    <link href="{{ asset('frontend/img/wireless.png.png') }}" rel="apple-touch-icon">
+    
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\SuperAdmin\OrganizationController;
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,8 +28,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'super-admin'], function () {
-    Route::get('/', [SuperAdmin::class, 'index'])->name('admin');
     Route::get('/', [SuperAdminController::class, 'index'])->name('super.admin');
+    Route::get('/organization', [OrganizationController::class, 'index'])->name('super.admin.organization');
+    Route::get('/organization/create', [OrganizationController::class, 'index'])->name('super.admin.organization.create');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
