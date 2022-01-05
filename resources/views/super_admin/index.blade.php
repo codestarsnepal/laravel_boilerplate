@@ -1,1 +1,1 @@
-@extends('layouts.super-admin')
+@extends('layouts.super_admin.super-admin')

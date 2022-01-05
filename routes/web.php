@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -30,12 +31,12 @@ Route::group(['prefix' => 'super-admin'], function () {
     Route::get('/', [SuperAdminController::class, 'index'])->name('super.admin');
 });
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
 });
 
 Route::group(['prefix' => 'staff'], function () {
-    Route::get('/', [HomeController::class, 'index'])->name('staff');
+    Route::get('/', [StaffController::class, 'index'])->name('staff');
 });
 Auth::routes();
 

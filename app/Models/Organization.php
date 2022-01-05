@@ -20,4 +20,8 @@ class Organization extends Model
         'email',
         'url'
     ];
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'user_organization', 'organization_id', 'user_id');
+    }
 }

@@ -19,25 +19,21 @@ class UserOrganizationSeeder extends Seeder
             'id' => 1,
             'user_id' => 2,
             'organization_id' => 1,
-            'role' => User::ROLE_SUPER_ADMIN
         ]);
         DB::table('user_organization')->insert([
             'id' => 2,
             'user_id' => 2,
-            'organization_id' => 1, 
-            'role' => User::ROLE_ADMIN
+            'organization_id' => 1,
         ]);
         DB::table('user_organization')->insert([
             'id' => 3,
             'user_id' => 3,
             'organization_id' => 2,
-            'role' => User::ROLE_USER
         ]);
         DB::table('user_organization')->insert([
             'id' => 4,
             'user_id' => 4,
             'organization_id' => 3,
-            'role' => User::ROLE_USER
         ]);
     }
 }

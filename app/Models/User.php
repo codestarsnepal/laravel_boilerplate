@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use PhpParser\Node\Stmt\Return_;
 
 class User extends Authenticatable
 {
@@ -18,9 +19,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    const ROLE_USER = 1;
-    const ROLE_ADMIN = 2;
-    const ROLE_SUPER_ADMIN = 3;
     protected $fillable = [
         'first_name',
         'last_name',
@@ -48,4 +46,34 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function organization()
+    {
+        return $this->belongsToMany(Organization::class, 'user_organization', 'user_id', 'organization_id');
+    }
+
+    public function isSuperAdmin()
+    {
+        if ($this->roles->contains('id', Role::ROLE_SUPER_ADMIN)) return true;
+    }
+
+    public function isAdmin()
+    {
+        if ($this->roles->contains('id', Role::ROLE_ADMIN)) return true;
+    }
+
+    public function isStaff()
+    {
+        if ($this->roles->contains('id', Role::ROLE_STAFF)) return true;
+    }
+
+    public function isCustomer()
+    {
+        if ($this->roles->contains('id', Role::ROLE_CUSTOMER)) return true;
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
+    }
 }

@@ -43,7 +43,7 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        @include('layouts.admin-navigation')
+        @include('layouts.super_admin.super-admin-navigation')
         <!-- Page Content -->
         <main>
             @yield('content')
