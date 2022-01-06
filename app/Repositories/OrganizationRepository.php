@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-class OrganizationRepository extends EloquentRepository
+class OrganizationRepository extends EloquentRepository implements OrganizationRepositoryInterface
 {
     public function getModel()
     {
