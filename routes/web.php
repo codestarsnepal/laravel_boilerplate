@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\SuperAdmin\OrganizationController;
+use App\Http\Controllers\SuperAdmin\OrganizationUserController;
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,13 @@ Route::group(['prefix' => 'super-admin'], function () {
     Route::get('/organization/edit/{id}', [OrganizationController::class, 'edit'])->name('super.admin.organization.edit');
     Route::post('/organization/update/{id}', [OrganizationController::class, 'update'])->name('super.admin.organization.update');
     Route::get('/organization/delete/{id}', [OrganizationController::class, 'delete'])->name('super.admin.organization.delete');
+
+    Route::get('/organization/users/{organization_id}', [OrganizationUserController::class, 'index'])->name('super.admin.organization.user');
+    Route::get('/organization/user/create/{organization_id}', [OrganizationUserController::class, 'create'])->name('super.admin.organization.user.create');
+    Route::post('/organization/user/store/{organization_id}', [OrganizationUserController::class, 'store'])->name('super.admin.organization.user.store');
+    Route::get('/organization/user/edit/{id}', [OrganizationUserController::class, 'edit'])->name('super.admin.organization.user.edit');
+    Route::post('/organization/user/update/{id}', [OrganizationUserController::class, 'update'])->name('super.admin.organization.user.update');
+    Route::get('/organization/user/delete/{id}', [OrganizationUserController::class, 'delete'])->name('super.admin.organization.user.delete');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {

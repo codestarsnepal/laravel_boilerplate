@@ -5,14 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserRole extends Model
+class UserOrganization extends Model
 {
     use HasFactory;
 
-    protected $table = 'user_roles';
+    protected $table = 'user_organization';
 
     protected $fillable = [
         'user_id',
-        'role_id'
+        'organization_id',
     ];
+    
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }
