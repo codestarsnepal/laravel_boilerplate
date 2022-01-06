@@ -17,11 +17,16 @@ class Organization extends Model
         'contact_number',
         'contact_person',
         'vat_number',
-        'email',
-        'url'
+        'email_address',
+        'url',
+        'plan_id'
     ];
 
     public function users() {
         return $this->belongsToMany(User::class, 'user_organization', 'organization_id', 'user_id');
+    }
+
+    public function plan(){
+        return $this->belongsTo(OragnizationPlan::class);
     }
 }
