@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrganizationRequest;
 use App\Models\OragnizationPlan;
 use App\Models\Organization;
 use App\Repositories\OrganizationRepositoryInterface;
@@ -31,8 +32,9 @@ class OrganizationController extends Controller
         return view('super_admin.organization.create');
     }
 
-    public function store(Request $request)
+    public function store(OrganizationRequest $request)
     {
+        $request->validated();
         $requestData = $request->all();
         $this->organizationRepo->create($requestData);
         return redirect()->route('super.admin.organization');

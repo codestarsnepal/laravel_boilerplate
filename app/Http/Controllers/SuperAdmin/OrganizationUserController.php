@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
 use App\Models\Organization;
 use App\Models\User;
 use App\Models\UserOrganization;
@@ -31,17 +32,9 @@ class OrganizationUserController extends Controller
         return view('super_admin.organization_user.create', compact('organization_id'));
     }
 
-    public function store(Request $request, $organization_id)
+    public function store(UserStoreRequest $request, $organization_id)
     {
-        $requestData = $request->all();
-        $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'role' => ['required'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed'],
-        ]);
+        $request->validate();
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
