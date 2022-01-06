@@ -21,7 +21,6 @@ class OrganizationController extends Controller
     {
         if ($request->ajax()) {
             $organizations = Organization::query()->with('plan');
-
             return DataTables::of($organizations)->make(true);
         }
         return view('super_admin.organization.index');
