@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\SuperAdmin\OrganizationController;
@@ -47,6 +48,9 @@ Route::group(['prefix' => 'super-admin'], function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
+    Route::get('/users', [AdminUserController::class, 'index'])->name('admin.user');
+    Route::get('/user/create', [AdminUserController::class, 'create'])->name('admin.user.create');
+    Route::post('/user/create/store', [AdminUserController::class, 'store'])->name('admin.user.store');
 });
 
 Route::group(['prefix' => 'staff'], function () {
