@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,7 +28,18 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    
+    public function redirectTo() {
+        $user = User::findOrFail(Auth::user()->id);
+        if ($user->isSuperAdmin()) {
+            return redirect()->route('super.admin');
+        } else if ($user->isAdmin()) {
+            return redirect()->route('admin');
+        } else if ($user->isStaff()) {
+            return redirect()->route('staff');
+        }
+        return redirect('/');
+      }
 
     /**
      * Create a new controller instance.

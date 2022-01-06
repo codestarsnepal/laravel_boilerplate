@@ -1,4 +1,4 @@
-@extends('layouts.super_admin.super-admin')
+@extends('layouts.app')
 
 @section('title')
     Organization
@@ -15,7 +15,7 @@
                 <h2>Organization </h2>
             </section>
             <a type="button" href="{{ route('super.admin.organization.create') }}" class="btn btn-primary"
-                style="width: 141px;">Add Category</a>
+                style="width: 141px;">Add Organization</a>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                 <div class="p-6 bg-white border-b border-gray-200">
@@ -39,6 +39,8 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
     <script>
         $(document).ready(function() {
             let url = '{{ route('super.admin.organization') }}'
@@ -50,10 +52,10 @@
                 ajax: {
                     url: url
                 },
-                columns: [
-                    {
+                columns: [{
                         data: function(row) {
-                            return '<a href="organization/users/'+row.id+'">' + row.name + '</a>'
+                            return '<a href="organization/users/' + row.id + '">' + row.name +
+                                '</a>'
                         },
                         name: 'id'
                     },

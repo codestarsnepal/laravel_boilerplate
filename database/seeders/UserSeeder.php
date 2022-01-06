@@ -36,20 +36,20 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 3,
+            'first_name' => 'Staff',
+            'last_name' => 'Staff',
+            'email' => 'staff@gmail.com',
+            'username' => 'staff',
+            'password' => Hash::make('staff'),
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 4,
             'first_name' => 'User',
             'last_name' => 'User',
             'email' => 'user@gmail.com',
             'username' => 'user',
             'password' => Hash::make('user'),
-        ]);
-
-        DB::table('users')->insert([
-            'id' => 4,
-            'first_name' => 'User_one',
-            'last_name' => 'User_one',
-            'email' => 'user_one@gmail.com',
-            'username' => 'user_one',
-            'password' => Hash::make('user_one'),
         ]);
     }
 }

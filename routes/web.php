@@ -29,7 +29,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix' => 'super-admin'], function () {
+Route::group(['prefix' => 'super-admin', 'middleware' => ['auth', 'super.admin']], function () {
     Route::get('/', [SuperAdminController::class, 'index'])->name('super.admin');
     Route::get('/organization', [OrganizationController::class, 'index'])->name('super.admin.organization');
     Route::get('/organization/create', [OrganizationController::class, 'create'])->name('super.admin.organization.create');
@@ -46,14 +46,14 @@ Route::group(['prefix' => 'super-admin'], function () {
     Route::get('/organization/user/delete/{id}', [OrganizationUserController::class, 'delete'])->name('super.admin.organization.user.delete');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::get('/users', [AdminUserController::class, 'index'])->name('admin.user');
     Route::get('/user/create', [AdminUserController::class, 'create'])->name('admin.user.create');
     Route::post('/user/create/store', [AdminUserController::class, 'store'])->name('admin.user.store');
 });
 
-Route::group(['prefix' => 'staff'], function () {
+Route::group(['prefix' => 'staff', 'middleware' => ['auth', 'staff']], function () {
     Route::get('/', [StaffController::class, 'index'])->name('staff');
 });
 Auth::routes();

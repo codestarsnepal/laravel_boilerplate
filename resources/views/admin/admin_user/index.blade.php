@@ -1,4 +1,4 @@
-@extends('layouts.admin.admin')
+@extends('layouts.app')
 
 @section('title')
     Admin User
@@ -14,8 +14,8 @@
             <section class="content-header">
                 <h2>Organization User</h2>
             </section>
-            <a type="button" href="{{ route('admin.user.create') }}" class="btn btn-primary"
-                style="width: 141px;">Add User</a>
+            <a type="button" href="{{ route('admin.user.create') }}" class="btn btn-primary" style="width: 141px;">Add
+                User</a>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                 <div class="p-6 bg-white border-b border-gray-200">
@@ -38,6 +38,9 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
     <script>
         $(document).ready(function() {
             let url = '{{ route('admin.user') }}'

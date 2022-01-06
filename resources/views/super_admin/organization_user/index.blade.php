@@ -1,4 +1,4 @@
-@extends('layouts.super_admin.super-admin')
+@extends('layouts.app')
 
 @section('title')
     Organization User
@@ -14,8 +14,8 @@
             <section class="content-header">
                 <h2>Organization User</h2>
             </section>
-            <a type="button" href="{{ route('super.admin.organization.user.create', $organization_id) }}" class="btn btn-primary"
-                style="width: 141px;">Add User</a>
+            <a type="button" href="{{ route('super.admin.organization.user.create', $organization_id) }}"
+                class="btn btn-primary" style="width: 141px;">Add User</a>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                 <div class="p-6 bg-white border-b border-gray-200">
@@ -38,10 +38,12 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
     <script>
         $(document).ready(function() {
             let organizationId = {!! $organization_id !!}
-            let url = '{{ route('super.admin.organization.user',123) }}'
+            let url = '{{ route('super.admin.organization.user', 123) }}'
             url = url.replace(123, organizationId)
             let editUrl = '{{ route('super.admin.organization.edit', 123) }}'
             editUrl = editUrl.replace(123, '')
