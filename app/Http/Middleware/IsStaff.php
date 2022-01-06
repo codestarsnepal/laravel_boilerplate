@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsAdmin
+class IsStaff
 {
     /**
      * Handle an incoming request.
@@ -19,10 +19,10 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
         $user = User::findOrFail(Auth::user()->id);
-        if ($user &&  $user->isAdmin()) {
+        if ($user &&  $user->isStaff()) {
             return $next($request);
         }
 
-        return redirect('/')->with('error', 'You dont have admin access');
+        return redirect('/')->with('error', 'You dont have staff access');
     }
 }

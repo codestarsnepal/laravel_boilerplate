@@ -1,52 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <!-- Favicons -->
+    <link href="{{ asset('frontend/img/wireless.png') }}" rel="icon">
+    <link href="{{ asset('frontend/img/wireless.png.png') }}" rel="apple-touch-icon">
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
     @yield('style')
+    <style>
+        .dataTables_wrapper .dataTables_length select {
+            width: 70px;
+        }
+
+        .alert {
+            position: absolute;
+            padding: 5px 20px;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            z-index: 5544;
+            top: 88px;
+            right: 2px;
+        }
+
+    </style>
 </head>
 
-<body>
+<body class="font-sans antialiased">
+    <div class="min-h-screen bg-gray-100">
+        @auth
+            @if (auth()->user()->isAdmin())
+                @include('layouts.admin.admin-navigation')
+            @elseif (auth()->user()->isSuperAdmin())
+                @include('layouts.super_admin.super-admin-navigation')
+            @elseif (auth()->user()->isStaff())
+                @include('layouts.staff.staff-navigation')
 
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+            @endif
+        @else
             @include('layouts.navigation')
-            <!-- Page Content -->
-            <main>
-                @yield('content')
-            </main>
-        </div>
-    </body>
+        @endauth
+        @if (session()->has('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
+            </div>
+        @elseif (session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session()->get('error') }}
+            </div>
+        @endif
+        <!-- Page Content -->
+        <main>
+            @yield('content')
+        </main>
+    </div>
 </body>
+<!-- Scripts -->
+<script src="{{ asset('js/jquery-3.6.0.js') }}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/ckeditor.js') }}"></script>
+<script src="{{ asset('js/sweetalert.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('.datatable').DataTable();
+        $('[data-toggle="tooltip"]').tooltip()
+        $(".alert").delay(2000).slideUp(1000);
+    });
+</script>
+@yield('script')
 
 </html>
