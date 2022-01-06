@@ -29,7 +29,7 @@
                         @csrf
                         <div class="form-group">
                             <label>Plan</label>
-                            <select class="form-control" name="plan_id">
+                            <select class="form-control" name="plan_id" required>
                                 <option>---Select Plan---</option>
                                 @foreach ($plans as $plan)
                                     <option value="{{ $plan->id }}" @if ($organization->plan_id == $plan->id) selected @endif>{{ $plan->name }}
